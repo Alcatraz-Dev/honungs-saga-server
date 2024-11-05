@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promo_banner_ones",
+  "info": {
+    "singularName": "promo-banner-one",
+    "pluralName": "promo-banner-ones",
+    "displayName": "promo banner one"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "btnText": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

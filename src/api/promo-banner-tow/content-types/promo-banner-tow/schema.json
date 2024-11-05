@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promo_banner_tows",
+  "info": {
+    "singularName": "promo-banner-tow",
+    "pluralName": "promo-banner-tows",
+    "displayName": "promo banner tow"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "btnText": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
