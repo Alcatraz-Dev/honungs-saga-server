@@ -31,7 +31,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                 name: item.title,
                 description: item.description || "No description available",
                 images: item?.image && [
-                  `${process.env.SERVER_URL}${item?.image?.url}`
+                  `${item?.image?.url}`
                 ],
 
               },
