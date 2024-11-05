@@ -31,8 +31,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                 name: item.title,
                 description: item.description || "No description available",
                 images: [
-                  'https://plus.unsplash.com/premium_photo-1663957861996-8093b48a22e6?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-
+                  `${process.env.SERVER_URL}${item.image.url}`
                 ],
 
               },
