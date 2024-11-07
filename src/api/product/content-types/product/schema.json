@@ -45,11 +45,11 @@
     "volume": {
       "type": "enumeration",
       "enum": [
-        "ml250",
-        "ml300",
-        "kg1"
+        "250 ml",
+        "300 ml",
+        "1 kg"
       ],
-      "default": "ml250"
+      "default": "250 ml"
     }
   }
 }
