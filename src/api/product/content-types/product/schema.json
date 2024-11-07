@@ -44,12 +44,8 @@
     },
     "volume": {
       "type": "enumeration",
-<<<<<<< HEAD
-      "enum": ["250ml", "300ml", "1kl"],
-      "default": "250ml"
-=======
-      "enum": ["250ml", "300ml", "1kl"]
->>>>>>> 527d814bdada48ffdb954c1aebcca82c547afd3e
+      "enum": ["ml250", "ml300", "kg1"],
+      "default": "ml250"
     }
   }
 }
