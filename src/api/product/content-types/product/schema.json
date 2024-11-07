@@ -41,6 +41,12 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "volume": {
+      "type": "enumeration",
+      "enum": ["250ml", "300ml", "1kl"],
+      "default": "250ml",
+      "required": true
     }
   }
 }
