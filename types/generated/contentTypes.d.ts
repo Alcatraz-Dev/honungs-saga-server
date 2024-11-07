@@ -486,6 +486,8 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    volume: Schema.Attribute.Enumeration<['ml250', 'ml300', 'kg1']> &
+      Schema.Attribute.DefaultTo<'ml250'>;
   };
 }
 

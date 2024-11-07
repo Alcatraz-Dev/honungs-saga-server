@@ -44,7 +44,11 @@
     },
     "volume": {
       "type": "enumeration",
-      "enum": ["ml250", "ml300", "kg1"],
+      "enum": [
+        "ml250",
+        "ml300",
+        "kg1"
+      ],
       "default": "ml250"
     }
   }
