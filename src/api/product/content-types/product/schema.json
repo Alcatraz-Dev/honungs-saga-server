@@ -45,11 +45,12 @@
     "volume": {
       "type": "enumeration",
       "enum": [
-        "250 ml",
-        "300 ml",
-        "1 kg"
+        "Quantity 250ml",
+        "Quantity 300ml",
+        "Quantity 1kg"
       ],
-      "default": "250 ml"
+      "default": "Quantity 250ml",
+      "required": true
     }
   }
 }
