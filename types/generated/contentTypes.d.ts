@@ -487,10 +487,16 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     volume: Schema.Attribute.Enumeration<
-      ['Quantity 250ml', 'Quantity 300ml', 'Quantity 1kg']
+      [
+        'Quantity 250ml',
+        'Quantity 300ml',
+        'Quantity 500ml',
+        'Quantity 750ml',
+        'Quantity 1kg',
+      ]
     > &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Quantity 250ml'>;
+      Schema.Attribute.DefaultTo<'Quantity 500ml'>;
   };
 }
 

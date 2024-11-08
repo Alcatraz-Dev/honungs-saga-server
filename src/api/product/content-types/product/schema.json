@@ -47,9 +47,11 @@
       "enum": [
         "Quantity 250ml",
         "Quantity 300ml",
+        "Quantity 500ml",
+        "Quantity 750ml",
         "Quantity 1kg"
       ],
-      "default": "Quantity 250ml",
+      "default": "Quantity 500ml",
       "required": true
     }
   }
