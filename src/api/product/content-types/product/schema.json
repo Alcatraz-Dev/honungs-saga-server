@@ -30,7 +30,9 @@
       "type": "text"
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true,
+      "default": 500
     },
     "isNew": {
       "type": "boolean",
