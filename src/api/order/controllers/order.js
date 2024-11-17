@@ -15,7 +15,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
   async create(ctx) {
     const { cart } = ctx.request.body;
 
-    // Check if the cart exists
+    // Check if the cart exists and is an array
     if (!cart || !Array.isArray(cart)) {
       ctx.response.status = 400;
       return { error: "Cart is required and must be an array." };
@@ -35,7 +35,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
           }
 
           // Ensure the product price is valid
-          if (!item.price || isNaN(item.price)) {
+          if (!item.price || isNaN(item.price) || item.price <= 0) {
             throw new Error(`Invalid price for product ${item.title}`);
           }
 
@@ -48,7 +48,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                 description: item.description || "No description available",
                 images: item?.image?.url ? [item.image.url] : [], // Handle missing image URLs
               },
-              unit_amount: Math.round(item.price * 100), // Convert to smallest currency unit
+              unit_amount: Math.round(item.price * 100), // Convert to smallest currency unit (öre)
             },
             quantity: product.amount,
           };
@@ -89,10 +89,30 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
         response: error.response?.data, // Stripe error response
       });
       
-      ctx.response.status = 500;
-
-      // Provide a generic error message to the frontend while logging detailed info
-      return { error: "An error occurred while processing your payment. Please try again later." };
+      // Handle different types of errors more gracefully
+      if (error.type === 'StripeCardError') {
+        ctx.response.status = 400;
+        return { error: "Your payment method was declined." };
+      } else if (error.type === 'StripeRateLimitError') {
+        ctx.response.status = 429;
+        return { error: "Too many requests made to Stripe. Please try again later." };
+      } else if (error.type === 'StripeInvalidRequestError') {
+        ctx.response.status = 400;
+        return { error: "Invalid request to Stripe. Please try again later." };
+      } else if (error.type === 'StripeAPIError') {
+        ctx.response.status = 500;
+        return { error: "Internal server error with Stripe. Please try again later." };
+      } else if (error.type === 'StripeConnectionError') {
+        ctx.response.status = 502;
+        return { error: "Network error while connecting to Stripe. Please try again later." };
+      } else if (error.type === 'StripeAuthenticationError') {
+        ctx.response.status = 401;
+        return { error: "Authentication with Stripe failed. Please check your API keys." };
+      } else {
+        // Generic fallback for other errors
+        ctx.response.status = 500;
+        return { error: "An unexpected error occurred. Please try again later." };
+      }
     }
   },
 }));
