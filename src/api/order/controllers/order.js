@@ -64,7 +64,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
         cancel_url: `${process.env.CLIENT_URL}?success=false`,
         line_items: lineItems,
         shipping_address_collection: { allowed_countries: ["SE"] },
-        payment_method_types: ["card" , "klarna" , "paypal"], // Ensure these are enabled in Stripe
+        payment_method_types: ["card" , "klarna" ], // Ensure these are enabled in Stripe
         locale: "sv", // Swedish locale
         allow_promotion_codes: true, // Allow promotion codes
       });
