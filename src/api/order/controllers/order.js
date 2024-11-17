@@ -1,5 +1,7 @@
 // @ts-nocheck
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  timeout: 10000, // Set a 10-second timeout for Stripe API requests
+});
 
 'use strict';
 
@@ -46,12 +48,14 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                 description: item.description || "No description available",
                 images: item?.image?.url ? [item.image.url] : [], // Handle missing image URLs
               },
-              unit_amount: item.price * 100, // Convert to smallest currency unit (e.g., cents)
+              unit_amount: Math.round(item.price * 100), // Convert to smallest currency unit
             },
             quantity: product.amount,
           };
         })
       );
+
+      console.log("Line Items for Stripe:", JSON.stringify(lineItems, null, 2)); // Debug line items
 
       // Create Stripe Checkout session
       const session = await stripe.checkout.sessions.create({
@@ -79,9 +83,16 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
       return session;
 
     } catch (error) {
-      console.error("Error in order creation:", error); // Log the full error
+      console.error("Error during Stripe checkout session creation:", {
+        message: error.message,
+        stack: error.stack,
+        response: error.response?.data, // Stripe error response
+      });
+      
       ctx.response.status = 500;
-      return { error: error.message }; // Return error message to the frontend
+
+      // Provide a generic error message to the frontend while logging detailed info
+      return { error: "An error occurred while processing your payment. Please try again later." };
     }
   },
 }));
